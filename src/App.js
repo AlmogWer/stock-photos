@@ -8,7 +8,7 @@ const searchUrl = `https://api.unsplash.com/search/photos/`;
 function App() {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const fetchImages = async () => {
     setLoading(true);
@@ -42,6 +42,7 @@ function App() {
   };
   useEffect(() => {
     fetchImages();
+    //eslint-disable-next line react-hooks/exhaustive-deps
   }, [page]);
 
   useEffect(() => {
@@ -56,11 +57,13 @@ function App() {
       }
     });
     return () => window.removeEventListener("scroll", event);
+    //eslint-disable-next line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setPage(1);
+    fetchImages();
   };
   return (
     <main>
